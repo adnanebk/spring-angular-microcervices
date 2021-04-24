@@ -1,0 +1,34 @@
+server:
+  port: 8086
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+  #  security:
+  #    oauth2:
+  #      resourceserver:
+  #        jwt:
+  #          issuer-uri: http://localhost:8080/auth/realms/omnidata
+  datasource:
+    url: jdbc:h2:mem:organisationDb
+  application:
+    name: organisation-service
+
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  bearer-only: true
+  cors: true
+  credentials:
+    secret: 1aa18936-e1c6-4923-b448-d9942addbf98
+  principal-attribute: adnanebk
+  realm: omnidata
+  resource: springboot-microservice-app2

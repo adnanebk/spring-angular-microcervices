@@ -1,0 +1,75 @@
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_UNIQUE
+        - RemoveRequestHeader=Cookie, Set-Cookie
+      routes:
+        filters:
+#          - TokenRelay=
+#          - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+#          - RemoveRequestHeader=Cookie,Set-Cookie
+#        - id: employee-service
+#          uri: http://loca*lhos
+#          predicates:
+#            - Path=/employee-service/**
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowCredentials: true
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTIONS
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - x-auth-token
+              - origin
+              - content-type
+              - accept
+            maxAge: 3600
+  application:
+    name: cloud-gateway
+server:
+  port: 9000
+allowedOrigins: http://localhost:4200
+eureka:
+  client:
+    #instance:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    register-with-eureka: false
+  instance:
+    prefer-ip-address: true
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  bearer-only: true
+  cors: true
+  credentials:
+    secret: bcdea945-c0ce-4c1b-a8b4-91ceaae5bc40
+  principal-attribute: adnanebk
+  realm: omnidata
+  resource: springboot-microservice-gateway
+#  security-constraints:
+#    - authRoles:
+#        - user
+#      securityCollections:
+#        patterns:
+#          -/**
+
+#  routes:
+#    employee:
+#      path: /api/employees/**
+#      url: http://localhost:8085/api/employees
+#    organisation:
+#      path: /api/organisations/**
+#      url: http://localhost:8086/api/organisations

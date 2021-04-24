@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: zuul-gateway
+server:
+  port: 9000
+allowedOrigins: http://localhost:4200
+eureka:
+  client:
+    #instance:
+    prefer-ip-address: true
+    #register-with-eureka: false
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  bearer-only: true
+  cors: true
+  credentials:
+    secret: bcdea945-c0ce-4c1b-a8b4-91ceaae5bc40
+  principal-attribute: adnanebk
+  realm: omnidata
+  resource: springboot-microservice-gateway
+zuul:
+  #  routes:
+  #    employee-service:
+  #      path: /employeee/**
+  #      serviceId: employee-service
+#  routes:
+#    employee-service: /employee/**
+#  ignored-headers: Access-Control-Allow-Credentials, Access-Control-Allow-Origin
+  sensitive-headers: Cookie,Set-Cookie
+#  routes:
+#    employee:
+#      path: /api/employees/**
+#      url: http://localhost:8085/api/employees
+#    organisation:
+#      path: /api/organisations/**
+#      url: http://localhost:8086/api/organisations

@@ -1,0 +1,41 @@
+allowedOrigins: http://localhost:4200
+server:
+  port: 8085
+#services:
+#  organisation:
+#    url: http://localhost:8086/api/organisations/
+spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8080/auth/realms/omnidata
+  datasource:
+    url: jdbc:h2:mem:employeeDb
+  application:
+    name: employee-service
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+  #client:
+  #instance:
+    preferIpAddress: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  bearer-only: true
+  cors: true
+  credentials:
+    secret: 5e53bf77-f72a-4cf3-8829-a61f2ed72bfc
+  principal-attribute: adnanebk
+  realm: omnidata
+  resource: springboot-microservice-app1
