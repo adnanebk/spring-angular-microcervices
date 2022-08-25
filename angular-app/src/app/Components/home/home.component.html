@@ -1,0 +1,45 @@
+
+<div class="container mt-5">
+<ngb-alert [dismissible]="false" *ngIf="employees.length<=0">
+  <strong>No data available</strong>
+</ngb-alert>
+<ngb-alert [dismissible]="false" *ngIf="employees.length>0">
+  <strong>Showing {{employees.length}} employees in the table</strong>
+</ngb-alert>
+
+  <td><button (click)="onAdd()" class="btn btn-info" >Add new employee</button></td>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Full name</th>
+    <th scope="col">Date of birth</th>
+    <th scope="col">Adress</th>
+    <th scope="col">Phone number</th>
+    <th scope="col">Company</th>
+    <th scope="col">Experience</th>
+    <th scope="col">Employment date</th>
+    <th scope="col">Update</th>
+    <th scope="col">Remove</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let emp of employees; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{emp.fullName}}</td>
+    <td>{{emp.dateOfBirth | date :'shortDate'}}</td>
+    <td>{{emp.adress}}</td>
+    <td>+212-{{ emp.phone | number | slice:0:3 }} - {{ emp.phone | slice:4:10 }} </td>
+    <td>{{emp.company}}</td>
+    <td>{{emp.experience}}</td>
+    <td>{{ emp.employmentDate | date :'shortDate' }}</td>
+    <td><button (click)="onUpdate(emp)" class="btn btn-warning" >Modify</button></td>
+    <td><button (click)="onEmployeeRemoved(emp)" class="btn btn-danger">Remove</button></td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+  <app-edit-employee (employeeUpdate)="onEmployeeSaved($event)" (employeeAdd)="onEmployeeAdded($event)"  #modal>
+    <!--  body of the modal  -->
+  </app-edit-employee>
+</div>

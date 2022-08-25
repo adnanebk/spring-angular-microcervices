@@ -1,0 +1,6 @@
+<div class="m-5" *ngIf="isLoggedIn">
+<h3>Hi , {{profile.username}}</h3>
+<a routerLink="" (click)="keycloak.logout()"><b>Logout</b></a>
+</div>
+<app-home></app-home>
+

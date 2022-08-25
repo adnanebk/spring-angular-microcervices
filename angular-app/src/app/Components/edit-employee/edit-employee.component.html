@@ -1,0 +1,56 @@
+<ng-template  #modal>
+  <form >
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+          <input [(ngModel)]="employee.fullName" id="fullName" class="form-control" name="fullName">
+      <span *ngIf="error?.fullName" class="text-danger">{{error.fullName}}</span>
+      </div>
+      <div class="form-group">
+        <label for="adress">Adress</label>
+        <input [(ngModel)]="employee.adress" id="adress" class="form-control" name="adress">
+        <span *ngIf="error?.adress" class="text-danger">{{error.adress}}</span>
+
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone number</label>
+        <input [(ngModel)]="employee.phone" id="phone"  class="form-control" name="phone">
+        <span *ngIf="error?.phone" class="text-danger">{{error.phone}}</span>
+
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input [(ngModel)]="employee.company" id="company" class="form-control" name="company">
+        <span *ngIf="error?.company" class="text-danger">{{error.company}}</span>
+
+      </div>
+
+    <div class="form-group">
+      <label for="company">Experience</label>
+      <input [(ngModel)]="employee.experience" id="experience" class="form-control" name="experience">
+      <span *ngIf="error?.experience" class="text-danger">{{error.experience}}</span>
+
+    </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input  [value]="employee.dateOfBirth | date"  (change)="setDate(dtb.value)" (dateSelect)="setDate(dtb.value)" #dtb  id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+          <div class="input-group-append">
+            <button  class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+          </div>
+        </div>
+        <span *ngIf="error?.dateOfBirth" class="text-danger">{{error.dateOfBirth}}</span>
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-dark" (click)="saveEmployee()" >Save</button>
+  </div>
+  </form>
+</ng-template>
